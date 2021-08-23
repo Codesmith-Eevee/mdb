@@ -1,1 +1,1 @@
-"this is repo for imdb-like open-source project"
+"this is repo for imdb-like open-source product"
