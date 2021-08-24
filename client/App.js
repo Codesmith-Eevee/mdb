@@ -1,14 +1,27 @@
 import React, { Component } from 'react';
 // import MainContainer from './containers/MainContainer';
 
+
 class App extends Component {
   constructor(props) {
     super(props);
   }
+
+  render() {
+    return React.createElement('h2', null, "Hey dude");
+  }
+}
+
+/*
+class App extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render(){
     return React.createElement('h2', null, "Hey Dude");
   }
-  /*
+
   render() {
     return (
       <div>
@@ -17,7 +30,8 @@ class App extends Component {
       </div>
     );
   };
-  */
+
 }
+*/
 
 export default App;
