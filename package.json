@@ -1,0 +1,86 @@
+{
+  "name": "mdb",
+  "version": "1.0.0",
+  "description": "movie recommendation webiste with tinder-like recommendation",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server/server.js",
+    "build": "NODE_ENV=development webpack -w",
+    "dev": "concurrently \"NODE_ENV=production webpack serve --hot --open\" \"nodemon server/server.js\""
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "build/**",
+      "client/**"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Codesmith-Eevee/mdb.git"
+  },
+  "author": "Codesmith-Eevee",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Codesmith-Eevee/mdb/issues"
+  },
+  "homepage": "https://github.com/Codesmith-Eevee/mdb#readme",
+  "dependencies": {
+    "bcryptjs": "^2.3.0",
+    "cookie-parser": "^1.4.1",
+    "cross-env": "^5.2.0",
+    "ejs": "^2.6.1",
+    "express": "^4.17.1",
+    "express-session": "^1.13.0",
+    "mongoose": "^5.13.2",
+    "pg": "^8.5.1",
+    "prop-types": "^15.6.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-hot-loader": "^4.6.3",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.14.5",
+    "@babel/preset-env": "^7.14.7",
+    "@babel/preset-react": "^7.14.5",
+    "@babel/preset-typescript": "^7.14.5",
+    "@babel/runtime": "^7.14.6",
+    "@types/react-redux": "^7.1.18",
+    "@types/redux": "^3.6.0",
+    "@types/redux-thunk": "^2.1.0",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.2.2",
+    "concurrently": "^6.2.0",
+    "css-loader": "^5.2.6",
+    "dotenv": "^10.0.0",
+    "eslint": "^7.30.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.3.2",
+    "http-proxy-middleware": "^0.19.1",
+    "isomorphic-fetch": "^3.0.0",
+    "mini-css-extract-plugin": "^2.1.0",
+    "node-fetch": "^2.6.1",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.3.2",
+    "sass": "^1.35.1",
+    "sass-loader": "^12.1.0",
+    "style-loader": "^3.0.0",
+    "url-loader": "^2.0.1",
+    "webpack": "^5.44.0",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-middleware": "^5.0.0",
+    "webpack-dev-server": "^3.11.2",
+    "webpack-hot-middleware": "^2.24.3"
+  }
+}
