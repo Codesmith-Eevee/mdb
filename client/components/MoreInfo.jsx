@@ -78,10 +78,13 @@ function MoreInfo () {
         )}
       </div>
       <div className='buttons'>
-        <button onClick={() => swipe('left')}>Swipe left!</button>
-        <button onClick={() => swipe('right')}>Swipe right!</button>
+        <button onClick={() => swipe('left')}>Like!</button>
+        <button onClick={() => swipe('right')}>Dislike!!</button>
       </div>
-      {lastDirection ? <h2 key={lastDirection} className='infoText'>You swiped {lastDirection}</h2> : <h2 className='infoText'>More Info - Swipe a card or press a button to get started!</h2>}
+      {lastDirection ? <h2 key={lastDirection} className='infoText'>You {lastDirection == 'left' ? 'liked' : 'disliked'} </h2> : <h2 className='infoText'>More Info - Swipe a card or press a button to get started!</h2>}
+      <div className='moreInfo'>
+        <p>placeholder for more info</p>
+      </div>
     </div>
   )
 }
