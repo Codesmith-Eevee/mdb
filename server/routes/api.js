@@ -1,12 +1,14 @@
 const express = require('express');
 
 const movieController = require('../controllers/movieController');
+// const cookieController = require('../controllers/cookieController');
 
 const router = express.Router();
 
 // login
-
-// querying movie api
+// router.get('/', cookieController.checkCookie, movieController.getLogin, (req, res) => {
+//     res.status(200).json(res.locals.login);
+// });
 
 // get user id
 router.get('/getuserid', movieController.getUserID, (req, res) => {

@@ -1,4 +1,5 @@
 require('dotenv').config();
+const cookieParser = require('cookie-parser');
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -8,11 +9,12 @@ const myRoutes = require('./routes/api');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.resolve(__dirname, '../build')));
+app.use(cookieParser());
 
 app.use('/api', myRoutes);
 
 // serve index.html on the route '/'
-app.get('/', (req, res) => {
+app.get('/',  (req, res) => {
   return res.status(200).sendFile(path.join(__dirname, '../index.html'));
 });
 
