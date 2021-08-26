@@ -33,7 +33,7 @@
 .authentication>div {
   display: block;
   width: 475px;
-  min-height: 510px;
+  min-height: 250px;
   position: fixed;
   top: 50%;
   left: 50%;

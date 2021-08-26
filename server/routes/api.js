@@ -1,6 +1,6 @@
-const express = require('express');
+const express = require("express");
 
-const movieController = require('../controllers/movieController');
+const movieController = require("../controllers/movieController");
 // const cookieController = require('../controllers/cookieController');
 
 const router = express.Router();
@@ -11,18 +11,18 @@ const router = express.Router();
 // });
 
 // get user id
-router.get('/getuserid', movieController.getUserID, (req, res) => {
-    res.status(200).json(res.locals.userID);
+router.post("/getuserid", movieController.getUserID, (req, res) => {
+  res.status(200).json(res.locals.userID);
 });
 
 // get more info
-router.get('/getmoreinfo', movieController.getmoreInfo, (req, res) => {
-    res.status(200).json(res.locals.moreInfo);
+router.get("/getmoreinfo", movieController.getmoreInfo, (req, res) => {
+  res.status(200).json(res.locals.moreInfo);
 });
 
 // add movie
-router.post('/addmovie', movieController.postMovie, (req, res) => {
-    res.status(200).json(res.locals.addMovie);
+router.post("/addmovie", movieController.postMovie, (req, res) => {
+  res.status(200).json(res.locals.addMovie);
 });
 
 module.exports = router;
