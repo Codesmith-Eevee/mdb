@@ -8,10 +8,14 @@ const router = express.Router();
 // login
 
 // update movie database (set interval to every night) add to database
-router.get('/movieapi', movieAPIController.updateMovies, (req, res) => {
-  res.status(200).json(res.locals.movie);
-  console.log('its working!');
-});
+router.post(
+  '/movieapi',
+  movieAPIController.updateMovies,
+  movieController.appendMovie,
+  (req, res) => {
+    res.status(200).json(console.log('its working!'));
+  }
+);
 
 // get user id
 router.get('/getuserid', movieController.getUserID, (req, res) => {
