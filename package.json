@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/Codesmith-Eevee/mdb#readme",
   "dependencies": {
+    "axios": "^0.21.1",
     "bcryptjs": "^2.3.0",
     "cookie-parser": "^1.4.1",
     "cross-env": "^5.2.0",

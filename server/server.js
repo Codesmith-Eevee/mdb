@@ -4,14 +4,16 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const PORT = process.env.PORT || 4000;
-const myRoutes = require("./routes/api");
+const myRoutes = require('./routes/api');
+// const movieRoutes = require('./routes/apiMovies');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.resolve(__dirname, "../build")));
 app.use(cookieParser());
 
-app.use("/api", myRoutes);
+app.use('/api', myRoutes);
+// app.use('apiMovies', movieRoutes);
 
 // serve index.html on the route '/'
 app.get("/", (req, res) => {
@@ -21,9 +23,8 @@ app.get("/", (req, res) => {
 /**
  * 404 handler
  */
-app.use("*", (req, res) => {
-  console.log("fetch failed");
-  res.status(404).send("Not Found");
+app.use('*', (req, res) => {
+  res.status(404).send('404 - Not Found');
 });
 
 /**

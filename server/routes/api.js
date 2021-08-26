@@ -1,17 +1,24 @@
-const express = require("express");
+const express = require('express');
 
-const movieController = require("../controllers/movieController");
-// const cookieController = require('../controllers/cookieController');
+const movieController = require('../controllers/movieController');
+const movieAPIController = require('../controllers/movieAPIController');
 
 const router = express.Router();
 
 // login
-// router.get('/', cookieController.checkCookie, movieController.getLogin, (req, res) => {
-//     res.status(200).json(res.locals.login);
-// });
+
+// update movie database (set interval to every night) add to database
+router.post(
+  '/movieapi',
+  movieAPIController.updateMovies,
+  movieController.appendMovie,
+  (req, res) => {
+    res.status(200).json(console.log('its working!'));
+  }
+);
 
 // get user id
-router.post("/getuserid", movieController.getUserID, (req, res) => {
+router.get('/getuserid', movieController.getUserID, (req, res) => {
   res.status(200).json(res.locals.userID);
 });
 

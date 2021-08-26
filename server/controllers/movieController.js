@@ -16,7 +16,7 @@ movieController.getUserID = (req, res, next) => {
                             AND b.user_id = $1
                         WHERE b.movie_id IS NULL
                         LIMIT 20`;
-*/
+  */
   const textStr = `SELECT
                         user_neg_history.movie_id, user_neg_history.movie_name, user_neg_history.thumbnail_url, user_neg_history.genre, LN(GREATEST(coalesce(user_profile.like, 1), 5)+random()*5) AS score
                         FROM (
@@ -91,6 +91,39 @@ movieController.postMovie = (req, res, next) => {
     .catch((err) => {
       return next(err);
     });
+};
+
+// append movie data
+movieController.appendMovie = (req, res, next) => {
+  console.log('appendMovie running!');
+  // console.log(Array.isArray(res.locals.movie));
+  // console.log(res.locals.movie.length);
+
+  // iterate over res.locals.movie array
+  for (let i = 0; i < res.locals.movie.length; i += 1) {
+    console.log('inside iterating res.locals.movie');
+    const { movie_id, movie_name, genre, ratings, thumbnail_url, more_info } =
+      res.locals.movie[i];
+
+    const textStr = `INSERT INTO movie_db (movie_id, movie_name, genre, ratings, thumbnail_url, more_info)VALUES ($1, $2, $3, $4, $5, $6)`;
+    const sqlParams = [
+      movie_id,
+      movie_name,
+      genre,
+      ratings,
+      thumbnail_url,
+      more_info,
+    ];
+
+    db.query(textStr, sqlParams)
+      .then(() => {
+        // wipe out res.locals.movie after adding
+        return next();
+      })
+      .catch((err) => {
+        return next(err);
+      });
+  }
 };
 
 module.exports = movieController;
