@@ -117,16 +117,56 @@ h2 {
   height: 300px;
 }
 
+.cardContainer_moreinfo {
+  width: 90vw;
+  max-width: 260px;
+  height: 400px;
+}
+
 .card {
   position: relative;
   background-color: #fff;
   width: 80vw;
   max-width: 260px;
   height: 300px;
-  box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.30);
-  border-radius: 20px;
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.214);
+  border-radius: 10px;
   background-size: cover;
   background-position: center;
+}
+
+.card h3 {
+  position: absolute;
+  bottom: 0;
+  margin: 10px;
+  color: #fff;
+}
+
+.ratings {
+  position: relative;
+  width: 40vw;
+  max-width: 130px;
+  height: 10px;
+  color: #fff;
+  animation-name: popup;
+  animation-duration: 800ms;
+}
+
+.ratings h3 {
+  position: absolute;
+  bottom: 0;
+  margin: 10px;
+}
+
+.more_info {
+  max-width: 260px;
+
+  height: 50px;
+  justify-content: center;
+
+  color: rgb(84, 82, 82);
+  animation-name: popup;
+  animation-duration: 800ms;
 }
 
 .cardContent {
@@ -135,12 +175,7 @@ h2 {
 }
 
       
-.card h3 {
-  position: absolute;
-  bottom: 0;
-  margin: 10px;
-  color: #fff;
-}
+
 
 .infoText {
   width: 100%;
@@ -172,19 +207,26 @@ h2 {
   box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.10);
 }
 
+.buttons button likeHistory {
+  flex-shrink: 0;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  background-color: #91e5b4;
+  transition: 200ms;
+  margin: 0 10px;
+  font-weight: bolder;
+  width: 160px;
+  box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.10);
+}
+
 .buttons button:hover {
   transform: scale(1.05);
 }
 
-.moreInfo {
-  width: 100%;
-  height: 50px;
-  justify-content: center;
-  display: flex;
-  color: rgb(84, 82, 82);
-  animation-name: popup;
-  animation-duration: 800ms;
-}
+
 
 @keyframes popup {
   0%   { transform: scale(1,1) }

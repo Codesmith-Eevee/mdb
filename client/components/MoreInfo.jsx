@@ -9,6 +9,7 @@ import TinderCard from "react-tinder-card";
 3: {movie_name: "Dancing Masters, The", thumbnail_url: "http://dummyimage.com/234x100.
 */
 
+//sessionStorage.clear();
 const db = [];
 
 console.log("length: ", Object.keys(sessionStorage).length);
@@ -19,9 +20,10 @@ while (counter < storageLength) {
   db.push(JSON.parse(sessionStorage[counter]));
   counter += 1;
 }
-console.log("moreinfo: ", db);
-
-
+console.log("moreinfo before pop: ", db);
+const username = db.pop();
+console.log(username);
+console.log("moreinfo after pop: ", db);
 /*
 const db = [
   {
@@ -52,9 +54,9 @@ const db = [
 ];
 */
 const alreadyRemoved = [];
-let moviesState = db; // This fixes issues with updating characters state forcing it to use the current state and not the state that was active when the card was created.
+// let moviesState = db; // This fixes issues with updating characters state forcing it to use the current state and not the state that was active when the card was created.
 
-function MoreInfo() {
+function MoreInfo(props) {
   const [movies, setMovies] = useState(db);
   const [lastDirection, setLastDirection] = useState();
 
@@ -66,18 +68,40 @@ function MoreInfo() {
     []
   );
 
-  const swiped = (direction, nameToDelete) => {
+  const swiped = (direction, nameToDelete, movie_id) => {
+    let likeStatus = false; //dislike
     console.log("removing: " + nameToDelete);
     setLastDirection(direction);
-    // fetch userid, movie_id, like_status
+    
+    if (direction == "left") 
+      likeStatus = true; //like
+    //// fetch start to /addmovie // fetch userid, movie_id, like_status (true: like, false: dislike)
+    fetch("/api/addmovie", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username: username, movie_id: movie_id, likeStatus: likeStatus }), //username and password
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log("data: ", data);
+        console.log("data in swipedFetch: ", data.rows);
+      })
+      .catch((error) => {
+        console.log("error", error); // returns if error occurs
+      });
+    //// fetch done
+    
     alreadyRemoved.push(nameToDelete);
   };
 
   const outOfFrame = (name) => {
     console.log(name + " left the screen!");
-    moviesState = moviesState.filter((character) => character.movie_name !== name);
+    moviesState = moviesState.filter((movie) => movie.movie_name !== name);
     setMovies(moviesState);
   };
+
 
   const swipe = (dir) => {
 
@@ -103,13 +127,14 @@ function MoreInfo() {
         rel="stylesheet"
       />
       <h1>Movie Tinder Card - MoreInfo</h1>
-      <div className="cardContainer">
+
+      <div className="cardContainer_moreinfo">
         {movies.map((movie, index) => (
           <TinderCard
             ref={childRefs[index]}
             className="swipe"
             key={movie.movie_name}
-            onSwipe={(dir) => swiped(dir, movie.movie_name)}
+            onSwipe={(dir) => swiped(dir, movie.movie_name, movie.movie_id)}
             onCardLeftScreen={() => outOfFrame(movie.movie_name)}
           >
             <div
@@ -118,14 +143,22 @@ function MoreInfo() {
               }}
               className="card"
             >
-              <h3>{movie.movie_name}</h3>
+              <h3>{/*movie.movie_name*/}</h3>
+            </div>
+            <div className="rating">
+              <h4>placeholder for rating</h4>
+            </div>
+            <div className="more_information">
+              <p>placeholder for synopsis</p>
             </div>
           </TinderCard>
         ))}
       </div>
+      
       <div className="buttons">
         <button onClick={() => swipe("left")}>Like!</button>
         <button onClick={() => swipe("right")}>Dislike!!</button>
+        <button className="likeHistory">Like History</button>
       </div>
       {lastDirection ? (
         <h2 key={lastDirection} className="infoText">
@@ -136,9 +169,9 @@ function MoreInfo() {
           More Info - Swipe a card or press a button to get started!
         </h2>
       )}
-      <div className="moreInfo">
-        <p>placeholder for more info</p>
-      </div>
+      
+
+
     </div>
   );
 }

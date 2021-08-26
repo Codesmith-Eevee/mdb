@@ -9,6 +9,8 @@ import TinderCard from "react-tinder-card";
 3: {movie_name: "Dancing Masters, The", thumbnail_url: "http://dummyimage.com/234x100.
 */
 
+// sessionStorage.clear();
+
 const db = [];
 
 console.log("length: ", Object.keys(sessionStorage).length);
@@ -20,8 +22,10 @@ while (counter < storageLength) {
   counter += 1;
 }
 
-console.log("swipeonly: ", db);
-
+console.log("swipeonly before pop: ", db);
+const username = db.pop();
+console.log(username);
+console.log("swipeonly after pop: ", db);
 /*
 const db = [
   {
@@ -53,7 +57,7 @@ const db = [
 */
 const alreadyRemoved = [];
 let moviesState = db; // This fixes issues with updating characters state forcing it to use the current state and not the state that was active when the card was created.
-console.log("moviesState: ", moviesState);
+// console.log("moviesState: ", moviesState);
 
 function SwipeOnly() {
   const [movies, setMovies] = useState(db);
@@ -68,16 +72,37 @@ function SwipeOnly() {
   );
 
 
-  const swiped = (direction, nameToDelete) => {
+  const swiped = (direction, nameToDelete, movie_id) => {
+    let likeStatus = false; //dislike
     console.log("removing: " + nameToDelete);
     setLastDirection(direction);
-    // fetch userid, movie_id, like_status
+
+    if (direction == "left") 
+      likeStatus = true; //like
+    //// fetch start to /addmovie // fetch userid, movie_id, like_status (true: like, false: dislike)
+    fetch("/api/addmovie", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username: username, movie_id: movie_id, likeStatus: likeStatus }), //username and password
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log("data: ", data);
+        console.log("data in swipedFetch: ", data.rows);
+      })
+      .catch((error) => {
+        console.log("error", error); // returns if error occurs
+      });
+    //// fetch done
+
     alreadyRemoved.push(nameToDelete);
   };
 
   const outOfFrame = (name) => {
     console.log(name + " left the screen!");
-    moviesState = moviesState.filter((character) => character.movie_name !== name);
+    moviesState = moviesState.filter((movie) => movie.movie_name !== name);
     setMovies(moviesState);
   };
 
@@ -110,14 +135,14 @@ function SwipeOnly() {
             ref={childRefs[index]}
             className="swipe"
             key={movie.movie_name}
-            onSwipe={(dir) => swiped(dir, movie.movie_name)}
+            onSwipe={(dir) => swiped(dir, movie.movie_name, movie.movie_id)}
             onCardLeftScreen={() => outOfFrame(movie.movie_name)}
           >
             <div
               style={{ backgroundImage: "url(" + movie.thumbnail_url + ")" }}
               className="card"
             >
-              <h3>{movie.movie_name}</h3>
+              <h3>{/*movie.movie_name*/}</h3>
             </div>
           </TinderCard>
         ))}
@@ -125,6 +150,7 @@ function SwipeOnly() {
       <div className="buttons">
         <button onClick={() => swipe("left")}>Like!</button>
         <button onClick={() => swipe("right")}>Dislike!!</button>
+        <button className="likeHistory">Like History</button>
       </div>
       {lastDirection ? (
         <h2 key={lastDirection} className="infoText">

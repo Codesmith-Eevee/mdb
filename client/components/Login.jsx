@@ -32,7 +32,8 @@ const Login = (props) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("data: ", data);
+        // console.log("data: ", data);
+        sessionStorage.clear();
         console.log("data in handleOnClick: ", data.rows);
         const tempArr = data.rows;
         tempArr.push(username);
