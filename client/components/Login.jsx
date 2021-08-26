@@ -32,15 +32,18 @@ const Login = (props) => {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log("data: ", data);
         console.log("data in handleOnClick: ", data.rows);
         const tempArr = data.rows;
+        tempArr.push(username);
         tempArr.forEach((element) => {
           sessionStorage.setItem(
             tempArr.indexOf(element),
             JSON.stringify(element)
           );
         });
-        console.log(JSON.parse(sessionStorage[0]));
+        console.log(JSON.parse(sessionStorage));
+        // console.log(JSON.parse(sessionStorage[0]));
 
         //switch view to tinder-style movie matching - requisite id populates data
         //props.setRedirect('/getuserid');

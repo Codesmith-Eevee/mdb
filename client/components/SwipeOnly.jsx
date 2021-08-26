@@ -1,18 +1,14 @@
 import React, { useState, useMemo } from "react";
 // import TinderCard from '../react-tinder-card/index'
 import TinderCard from "react-tinder-card";
-// const path = require('path');
-// path.join(__dirname, '../index.html'))
-
 
 /* sessionStorage = array of objects
 0: {movie_name: "Muppet Family Christmas, A", thumbnail_url: "http://dummyimage.com/219x100.png/cc0000/ffffff", ratings: 5.7}
 1: {movie_name: "Schmatta: Rags to Riches to Rags", thumbnail_url: "http://dummyimage.com/240x100.png/5fa2dd/ffffff", ratings: 1.8}
 2: {movie_name: "Leviathan", thumbnail_url: "http://dummyimage.com/174x100.png/cc0000/ffffff", ratings: 5.2}
 3: {movie_name: "Dancing Masters, The", thumbnail_url: "http://dummyimage.com/234x100.
-
 */
-/*
+
 const db = [];
 
 console.log("length: ", Object.keys(sessionStorage).length);
@@ -25,8 +21,8 @@ while (counter < storageLength) {
 }
 
 console.log("swipeonly: ", db);
-*/
 
+/*
 const db = [
   {
     movie_name: 'Coco',
@@ -54,9 +50,10 @@ const db = [
     // url: './assets/promising_young_woman.png'
   }
 ]
-
+*/
 const alreadyRemoved = [];
 let moviesState = db; // This fixes issues with updating characters state forcing it to use the current state and not the state that was active when the card was created.
+console.log("moviesState: ", moviesState);
 
 function SwipeOnly() {
   const [movies, setMovies] = useState(db);
@@ -70,10 +67,11 @@ function SwipeOnly() {
     []
   );
 
-    // {movie_name: "Muppet Family Christmas, A", thumbnail_url
+
   const swiped = (direction, nameToDelete) => {
     console.log("removing: " + nameToDelete);
     setLastDirection(direction);
+    // fetch userid, movie_id, like_status
     alreadyRemoved.push(nameToDelete);
   };
 
@@ -95,7 +93,6 @@ function SwipeOnly() {
     }
   };
 
-    // {movie_name: "Muppet Family Christmas, A", thumbnail_url
   return (
     <div>
       <link
@@ -117,7 +114,7 @@ function SwipeOnly() {
             onCardLeftScreen={() => outOfFrame(movie.movie_name)}
           >
             <div
-              style={{ backgroundImage: "thumbnail_url(" + movie.thumbnail_url + ")" }}
+              style={{ backgroundImage: "url(" + movie.thumbnail_url + ")" }}
               className="card"
             >
               <h3>{movie.movie_name}</h3>
