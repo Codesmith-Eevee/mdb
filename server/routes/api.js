@@ -18,7 +18,7 @@ router.post(
 );
 
 // get user id
-router.get('/getuserid', movieController.getUserID, (req, res) => {
+router.post('/getuserid', movieController.getUserID, (req, res) => {
   res.status(200).json(res.locals.userID);
 });
 
