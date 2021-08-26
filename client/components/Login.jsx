@@ -1,14 +1,30 @@
 import React, { useState } from 'react';
+// import { useHistory } from 'react-router-dom';
+// import {useNavigate} from 'react-router-dom';
 import '../App.css';
 
-const Login = () => {
-    const [username, setUsername] = useState(true);
-    const [password, setPassword] = useState(true);
+
+const Login = (props) => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    //const history = useHistory();
+    /*
+    const redirect = () => {
+      history.push('/login');
+    }
+    */
+    // const navigate = useNavigate();
 
     function handleOnClick (username, password) {
         console.log('button clicked');
         console.log('username: ', username, ' password: ', password);
-        fetch('/api/login', {
+        console.log("props: ", props);
+        // redirect();
+        props.setRedirect('/getuserid');
+        // console.log(props.navigate('/getuserid'));
+        // console.log('props.setRedirect: ', props.setRedirect('/getuserid'));
+        console.log('redirected!');
+        fetch('/api/getuserid', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -19,10 +35,11 @@ const Login = () => {
         .then(data => {
           console.log('data in handleOnClick: ', data)
         //switch view to tinder-style movie matching - requisite id populates data
-          props.setRedirect('/getuserid');
+          //props.setRedirect('/getuserid');
         })
         .catch((error) => {
-        console.log('error', error)  // returns if error occurs
+          //props.setRedirect('/getuserid');
+          console.log('error', error)  // returns if error occurs
         })
     };
 
