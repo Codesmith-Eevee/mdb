@@ -3,16 +3,19 @@ const webpack = require('webpack');
 const dotenv = require('dotenv').config({
   path: path.join(__dirname, './.env'),
 });
+const { SourceMapDevToolPlugin } = require("webpack");
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: ['./client/index.js'],
   output: {
-    path: path.resolve(__dirname, './build'),
+    path: path.resolve(__dirname, 'build'),
     publicPath: '/',
     filename: 'bundle.js',
+    sourceMapFilename: "[name].js.map"
   },
+  devtool: "source-map",
   mode: process.env.NODE_ENV,
   devServer: {
     host: 'localhost',
@@ -24,6 +27,7 @@ module.exports = {
     publicPath: '/',
     // fallback to root for other urls
     historyApiFallback: true,
+    writeToDisk: true,
     inline: true,
     headers: { 'Access-Control-Allow-Origin': '*' },
     proxy: {
@@ -36,6 +40,11 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.js$/,
+        enforce: 'pre',
+        use: ['source-map-loader'],
+      },
       {
         test: /\.[jt]sx?$/i,
         exclude: /node_modules/,
@@ -68,6 +77,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './index.html'),
+    }),
+    new SourceMapDevToolPlugin({
+      filename: "[file].map"
     }),
   ],
 };
